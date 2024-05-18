@@ -1,0 +1,2 @@
+安装flask库（使用清华源）：
+pip install flask -i https://pypi.tuna.tsinghua.edu.cn/simple/

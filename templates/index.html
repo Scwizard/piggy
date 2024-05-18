@@ -1,0 +1,272 @@
+<!DOCTYPE Html>
+<!--Scwizard-->
+<html>
+<head>
+	<meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta charset="utf-8" />
+	<title>我的存钱罐</title>
+	<link href="./daisyUI/index.min.css" rel="stylesheet" type="text/css" />
+	<script src="./daisyUI/index.js"></script>
+	<script src="./jQuery/jQuery-3.7.1.min.js"></script>
+	<link href="./xtiper-master/css/xtiper.css" type="text/css" rel="stylesheet" />
+	<script src="./xtiper-master/js/xtiper.js" type="text/javascript"></script>
+</head>
+
+<body>
+<script>
+list = ['dot_one_coin','dot_five_coin','one_coin','one_paper','five_paper','ten_paper','twenty_paper','fifty_paper','hundred_paper']
+raw = [{{ DOTONECOINNUM }}, {{ DOTFIVECOINNUM}} , {{ ONECOINNUM }} , {{ ONEPAPERNUM }} , {{ FIVEPAPERNUM }} , {{ TENPAPERNUM }} , {{ TWENTYPAPERNUM }} , {{ FIFTYPAPERNUM }} , {{ HUNDREDPAPERNUM }} ]
+function add(index){
+	var cat = list[index]
+	xhr = new XMLHttpRequest()
+	xhr.open("GET", "./add/" + cat, true)
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			xtip.msg(xhr.responseText,{icon: 's', type: 'w', pos: 't'})
+			location.reload()
+		}
+	};
+	xhr.send();
+}
+
+function rm(index){
+	var cat = list[index]
+	if (raw[index] <= 0 == true){
+		xtip.msg("不能再删了啊喂(#`O′)",{icon: 'e', type: 'w', pos: 't'})
+		return false
+	}
+	else{
+		xhr = new XMLHttpRequest()
+		xhr.open("GET", "./rm/" + cat, true)
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				xtip.msg(xhr.responseText,{icon: 's', type: 'w', pos: 't'})
+				location.reload()
+			}
+		};
+	xhr.send();
+	}
+}
+</script>
+<div class="overflow-x-auto">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>项目</th>
+        <th>当前数量</th>
+        <th>操作-增加</th>
+        <th>操作-减少</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- dot 1 -->
+      <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">1角硬币</div>
+              <div class="text-sm opacity-50">存储为：dot_one_coin</div>
+            </div>
+          </div>
+        </td>
+        <td id="dot_cone_coin">
+          {{ DOTONECOINNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(0)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(0)">-</button>
+        </th>
+      </tr>
+      <!-- dot 5 -->
+      <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">5角硬币</div>
+              <div class="text-sm opacity-50">存储为：dot_five_coin</div>
+            </div>
+          </div>
+        </td>
+        <td id="dot_five_coin">
+          {{ DOTFIVECOINNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(1)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(1)">-</button>
+        </th>
+      </tr>
+      <!-- 1 coin -->
+      <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">1元硬币</div>
+              <div class="text-sm opacity-50">存储为：one_coin</div>
+            </div>
+          </div>
+        </td>
+        <td id="cone_coin">
+          {{ ONECOINNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(2)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(2)">-</button>
+        </th>
+      </tr>
+      <!-- row 4 -->
+      <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">1元纸币</div>
+              <div class="text-sm opacity-50">存储为：one_paper</div>
+            </div>
+          </div>
+        </td>
+        <td id="one_paper">
+          {{ ONEPAPERNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(3)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(3)">-</button>
+        </th>
+      </tr>
+	  
+	  <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">5元纸币</div>
+              <div class="text-sm opacity-50">存储为：five_paper</div>
+            </div>
+          </div>
+        </td>
+        <td id="five_paper">
+          {{ FIVEPAPERNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(4)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(4)">-</button>
+        </th>
+      </tr>
+	  
+	  
+	  <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">10元纸币</div>
+              <div class="text-sm opacity-50">存储为：ten_paper</div>
+            </div>
+          </div>
+        </td>
+        <td id="ten_paper">
+          {{ TENPAPERNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(5)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(5)">-</button>
+        </th>
+      </tr>
+	  
+	  
+	  <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">20元纸币</div>
+              <div class="text-sm opacity-50">存储为：twenty_paper</div>
+            </div>
+          </div>
+        </td>
+        <td id="twenty_paper">
+          {{ TWENTYPAPERNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(6)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(6)">-</button>
+        </th>
+      </tr>
+	  
+	  
+	  <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">50元纸币</div>
+              <div class="text-sm opacity-50">存储为：fifty_paper</div>
+            </div>
+          </div>
+        </td>
+        <td id="fifty_paper">
+          {{ FIFTYPAPERNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(7)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(7)">-</button>
+        </th>
+      </tr>
+	  
+	  
+	  <tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">100元纸币</div>
+              <div class="text-sm opacity-50">存储为：hundred_paper</div>
+            </div>
+          </div>
+        </td>
+        <td id="hundred_paper">
+          {{ HUNDREDPAPERNUM }} 个
+          <br/>
+        </td>
+        <th>
+		  <button class="btn btn-ghost btn-outline btn-success btn-sm" onclick="add(8)">+</button>
+		</th>
+        <th>
+          <button class="btn btn-ghost btn-outline btn-error btn-sm" onclick="rm(8)">-</button>
+        </th>
+      </tr>
+	  
+    </tbody>
+    <!-- 结束 -->
+    <tfoot>
+      <tr>
+        <th>统计：</th>
+        <th>{{ TOTAL }} 元</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </tfoot>
+    
+  </table>
+</div>
+</body>
+</html>
